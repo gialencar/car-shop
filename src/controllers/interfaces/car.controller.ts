@@ -6,22 +6,22 @@ export default interface ICarController {
     res: Response,
     next: NextFunction,
   ): Promise<Response | void>;
-  findAll(
+  read(
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<Response | void>;
-  findById(
+  readOne(
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<Response | void>;
-  updateById(
+  update(
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<Response | void>;
-  deleteById(
+  delete(
     req: Request,
     res: Response,
     next: NextFunction,

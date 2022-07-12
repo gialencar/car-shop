@@ -29,25 +29,29 @@ export default class CarController {
     }
   }
 
-  //   async findAll(
-  //     _req: Request,
-  //     _res: Response,
-  //     _next: NextFunction,
-  //   ): Promise<void | Response> {}
+  async read(
+    req: Request,
+    res: Response,
+    _next: NextFunction,
+  ): Promise<void | Response> {
+    const cars = await this.#carService.read();
 
-  //   async findById(
+    return res.status(200).json(cars);
+  }
+
+  //   async readOne(
   //     req: Request,
   //     res: Response,
   //     next: NextFunction,
   //   ): Promise<void | Response> {}
 
-  //   async updateById(
+  //   async update(
   //     req: Request,
   //     res: Response,
   //     next: NextFunction,
   //   ): Promise<void | Response> {}
 
-  //   async deleteById(
+  //   async delete(
   //     req: Request,
   //     res: Response,
   //     next: NextFunction,
