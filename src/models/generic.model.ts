@@ -1,7 +1,7 @@
 import { Document, isValidObjectId, Model } from 'mongoose';
 import { Model as IGenericModel } from '../interfaces/ModelInterface';
 
-export default abstract class MongooseModel<T> implements IGenericModel<T> {
+export default abstract class GenericModel<T> implements IGenericModel<T> {
   protected mongooseModel: Model<T & Document>;
 
   constructor(mongooseModel: Model<T & Document>) {

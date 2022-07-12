@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
-import MongooseModel from './mongoose.model';
+import GenericModel from './generic.model';
 import { ICar } from './schemas/car.schema';
 
-export default class CarModel extends MongooseModel<ICar> {
+export default class CarModel extends GenericModel<ICar> {
   constructor(mongooseModel: Model<ICar>) {
     super(mongooseModel);
     this.mongooseModel = mongooseModel;
