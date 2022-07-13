@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodError } from 'zod';
+import CustomError from '../errors/custom.error';
 
 export default function errorMiddleware(
   err: unknown,
@@ -7,8 +7,8 @@ export default function errorMiddleware(
   res: Response,
   _next: NextFunction,
 ) {
-  if (err instanceof ZodError) {
-    console.log('--*-*-*-*-*-*-*-*-*-*-*-*-*-*-', err);
+  if (err instanceof CustomError) {
+    return res.status(err.statusCode).json({ error: err.message });
   }
 
   return res.status(500).json({ message: 'internal error' });
