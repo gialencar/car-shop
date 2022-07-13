@@ -4,6 +4,11 @@ import { Car } from '../interfaces/CarInterface';
 import IService from '../services/interfaces';
 import ICarController from './interfaces/car.controller';
 
+enum ErrorMessages {
+  idLengthError = 'Id must have 24 hexadecimal characters',
+  notFound = 'Object not found',
+}
+
 export default class CarController implements ICarController {
   #carService: IService<Car>;
 
@@ -49,7 +54,7 @@ export default class CarController implements ICarController {
     try {
       const { id } = req.params;
       if (id.length !== 24) {
-        throw new CustomError('Id must have 24 hexadecimal characters', 400);
+        throw new CustomError(ErrorMessages.idLengthError, 400);
       }
 
       const car = await this.#carService.readOne(id);
@@ -75,7 +80,7 @@ export default class CarController implements ICarController {
 
       const updatedCar = await this.#carService.update(id, carObj);
       if (!updatedCar) {
-        throw new CustomError('Object not found', 404);
+        throw new CustomError(ErrorMessages.notFound, 404);
       }
 
       return res.status(200).json(updatedCar);
@@ -92,14 +97,14 @@ export default class CarController implements ICarController {
     try {
       const { id } = req.params;
       if (id.length !== 24) {
-        throw new CustomError('Id must have 24 hexadecimal characters', 400);
+        throw new CustomError(ErrorMessages.idLengthError, 400);
       }
 
       const deletedCar = await this.#carService.delete(id);
       console.log({ deletedCar });
 
       if (!deletedCar) {
-        throw new CustomError('Object not found', 404);
+        throw new CustomError(ErrorMessages.notFound, 404);
       }
 
       return res.status(204).send();
