@@ -11,6 +11,6 @@ const carMongooseSchema = new Schema<ICar>({
   buyValue: { type: Number, required: true },
   doorsQty: { type: Number, required: true },
   seatsQty: { type: Number, required: true },
-});
+}, { versionKey: false });
 
 export const CarMongooseModel = model<ICar>('Car', carMongooseSchema);

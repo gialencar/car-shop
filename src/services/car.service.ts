@@ -28,6 +28,11 @@ export default class CarService implements IService<ICar> {
   }
 
   async update(id: string, entity: ICar): Promise<ICar | null | ServiceError> {
+    const parsed = carSchema.safeParse(entity);
+    if (!parsed.success) {
+      return { error: parsed.error };
+    }
+
     return this.#carModel.update(id, entity);
   }
 

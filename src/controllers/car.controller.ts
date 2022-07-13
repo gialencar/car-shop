@@ -68,7 +68,21 @@ export default class CarController implements ICarController {
     res: Response,
     next: NextFunction,
   ): Promise<void | Response> {
-    throw new Error('Method not implemented.');
+    try {
+      const { id } = req.params;
+      const { model, year, color, buyValue, seatsQty, doorsQty } = req.body;
+      const carObj = { model, year, color, buyValue, seatsQty, doorsQty };
+
+      const updatedCar = await this.#carService.update(id, carObj);
+      if (!updatedCar) {
+        throw new CustomError('Object not found', 404);
+      }
+      console.log({ updatedCar });
+
+      return res.status(200).json(updatedCar);
+    } catch (err) {
+      next(err);
+    }
   }
 
   async delete(
