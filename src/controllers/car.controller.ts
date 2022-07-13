@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
+import CustomError from '../errors/custom.error';
 import { Car } from '../interfaces/CarInterface';
 import IService from '../services/interfaces';
+import ICarController from './interfaces/car.controller';
 
-export default class CarController {
+export default class CarController implements ICarController {
   #carService: IService<Car>;
 
   constructor(carService: IService<Car>) {
@@ -39,21 +41,41 @@ export default class CarController {
     return res.status(200).json(cars);
   }
 
-  //   async readOne(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction,
-  //   ): Promise<void | Response> {}
+  async readOne(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void | Response> {
+    try {
+      const { id } = req.params;
+      if (id.length !== 24) {
+        throw new CustomError('Id must have 24 hexadecimal characters', 400);
+      }
 
-  //   async update(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction,
-  //   ): Promise<void | Response> {}
+      const car = await this.#carService.readOne(id);
+      if (!car) {
+        throw new CustomError('Object not found', 404);
+      }
 
-  //   async delete(
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction,
-  //   ): Promise<void | Response> {}
+      return res.status(200).json(car);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async update(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void | Response> {
+    throw new Error('Method not implemented.');
+  }
+
+  async delete(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void | Response> {
+    throw new Error('Method not implemented.');
+  }
 }
