@@ -77,7 +77,6 @@ export default class CarController implements ICarController {
       if (!updatedCar) {
         throw new CustomError('Object not found', 404);
       }
-      console.log({ updatedCar });
 
       return res.status(200).json(updatedCar);
     } catch (err) {
@@ -90,6 +89,22 @@ export default class CarController implements ICarController {
     res: Response,
     next: NextFunction,
   ): Promise<void | Response> {
-    throw new Error('Method not implemented.');
+    try {
+      const { id } = req.params;
+      if (id.length !== 24) {
+        throw new CustomError('Id must have 24 hexadecimal characters', 400);
+      }
+
+      const deletedCar = await this.#carService.delete(id);
+      console.log({ deletedCar });
+
+      if (!deletedCar) {
+        throw new CustomError('Object not found', 404);
+      }
+
+      return res.status(204).send();
+    } catch (err) {
+      next(err);
+    }
   }
 }

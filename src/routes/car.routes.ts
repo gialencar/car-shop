@@ -29,6 +29,9 @@ carRouter
     (req, res, next) => {
       carController.update(req, res, next);
     },
-  );
+  )
+  .delete('/cars/:id', (req, res, next) => {
+    carController.delete(req, res, next);
+  });
 
 export default carRouter;
