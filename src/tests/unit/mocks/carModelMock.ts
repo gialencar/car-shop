@@ -12,12 +12,12 @@ export default class carModelMock implements IGenericModel<ICar> {
     return [validCar as ICar];
   };
   readOne = async (id: string): Promise<ICar | null> => {
-    return null;
+    return validCar as ICar;
   };
   update = async (id: string, entity: ICar): Promise<ICar | null> => {
-    return entity;
+    return validCar as ICar;
   };
   delete = async (id: string): Promise<ICar | null> => {
-    return null;
+    return validCar as ICar;
   };
 }

@@ -27,4 +27,13 @@ describe('car service', () => {
       expect(cars).to.be.deep.equal([carMock]);
     });
   });
+
+  describe('get one car', () => {
+    it('Success', async () => {
+      const carService = new CarService(new carModelMock());
+
+      const car = await carService.readOne('62cef79b12eb767b7b44df50');
+      expect(car).to.be.deep.equal(carMock);
+    });
+  });
 });

@@ -101,7 +101,6 @@ export default class CarController implements ICarController {
       }
 
       const deletedCar = await this.#carService.delete(id);
-      console.log({ deletedCar });
 
       if (!deletedCar) {
         throw new CustomError(ErrorMessages.notFound, 404);
