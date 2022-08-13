@@ -2,7 +2,7 @@
 
 # Contexto
 
-API com CRUD para gerenciar uma concessionaria de veículos. Construida seguindo princípios da programação orientada a objetos com Typescript
+API com CRUD para gerenciar uma concessionária de veículos. Construída seguindo princípios da programação orientada a objetos com Typescript
 
 # Ferramentas e tecnologias utilizadas
 * Typescript
